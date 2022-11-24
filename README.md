@@ -1,6 +1,6 @@
 # Monumenta Items
 
-An app that gets the stats of your favorite Monumenta builds
+An app that gets the stats of your favorite Monumenta builds. Inspired by the wonderful website [https://www.ohthemisery.tk/](https://www.ohthemisery.tk/), with an end goal of displaying charm builds alongside equipment, and class skill damages.
 
 ## Getting Started
 
@@ -23,8 +23,6 @@ Options to run the app:
 ```
 c:\path\to\either\repository\folder>main.py
 ```
-
-Result print instructions located in main.py docstring
 
 ## Authors
 
