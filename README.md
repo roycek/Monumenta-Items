@@ -7,6 +7,7 @@ An app that gets the stats of your favorite Monumenta builds. Inspired by the wo
 ### Dependencies
 
 * Python 3.x
+* tkinter
 
 ### Installing
 
