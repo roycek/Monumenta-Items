@@ -2,6 +2,15 @@ import requests
 from concurrent.futures import ThreadPoolExecutor
 
 
+class InfoList:
+	def __init__(self, inputlist):
+		self.inputlist = inputlist
+		self.stats = getbuild(inputlist)
+
+	def returnstats(self):
+		return self.stats
+
+
 def manualbuild(itemlist):
 	piece = []
 
@@ -67,10 +76,11 @@ def getbuild(items):
 	return outputted_build
 
 
-class InfoList:
-	def __init__(self, inputlist):
-		self.inputlist = inputlist
-		self.stats = getbuild(inputlist)
+def getitemstats(charmlist, gearlist):
+	stats = []
+	n_threads = len([charmlist, gearlist])
+	with ThreadPoolExecutor(n_threads) as executor:
+		_ = [executor.submit((lambda items: stats.append(InfoList(items).returnstats()))(itemlist))
+							for itemlist in [charmlist, gearlist]]
 
-	def returnstats(self):
-		return self.stats
+		return stats
