@@ -22,7 +22,7 @@ Options to run the app:
 * Execute from commandline
 
 ```
-c:\path\to\either\repository\folder>main.py
+c:\path\to\repository\folder>main.py
 ```
 
 ## Authors
