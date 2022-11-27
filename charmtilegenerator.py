@@ -3,8 +3,16 @@ from constants import Constants
 import string
 
 
+def returnstatcolor(stat, value):
+    if ("cooldown" in stat) and ("reduction" not in stat) or ("requirement" in stat):
+        return Constants.charmstatcolors["positiveCharm"] if value < 0 else Constants.charmstatcolors["negativeCharm"]
+    else:
+        return Constants.charmstatcolors["negativeCharm"] if value < 0 else Constants.charmstatcolors["positiveCharm"]
+
+
 def charmtohumanreadable(stattext, statval):
-    wordlist = " ".join([string.capwords(word) for word in stattext.split('_')])
+    wordlist = " ".join([string.capwords(word) for word in stattext.split('_')
+                         if word != "m" if word != "p" if word != "bow" if word != "tool"])
     humanstr = ''
 
     if statval > 0:
@@ -33,41 +41,31 @@ def displaycharminfo(window, statlist):
         location = charm["location"]
         charmnamecolor = Constants.locationcolors[location]
 
-        tk.Label(charmframe, text=charm["name"], font=("Helvetica", int(75 / len(statlist[0])), "bold", "underline"),
-                 bg="black", fg=charmnamecolor).grid(row=3, column=index, padx=20, pady=2)
+        tk.Label(charmframe, text=charm["name"],
+                 font=("Helvetica", int(75 / len(statlist[0])),
+                       ("bold", "underline") if charm["tier"] in ["Epic", "Legendary"] else "bold"),
+                 bg="black", fg=charmnamecolor).grid(row=0, column=0, padx=2, pady=2, sticky="W")
 
         charmpowerframe = tk.Frame(charmframe, bg="black")
-        charmpowerframe.grid(row=4, column=index, padx=2, pady=2)
+        charmpowerframe.grid(row=1, column=0, padx=2, pady=2, sticky="W")
 
         tk.Label(charmpowerframe, text="Charm Power: ", bg="black", fg=Constants.infotext).pack(side="left")
-        for x in range(charm['power']):
+        for x in range(charm["power"]):
             tk.Label(charmpowerframe, text=u"\u2605", font=("Helvetica", 10), bg="black",
                      fg=Constants.masterworkstar).pack(side="left")
+        tk.Label(charmpowerframe, text="-", bg="black", fg=Constants.infotext).pack(side="left")
+        tk.Label(charmpowerframe, text=charm["class_name"], bg="black", fg=Constants.classcolors[charm["class_name"]])\
+            .pack(side="left")
 
         for count, stat in enumerate(charm["stats"]):
             statvalue = charm["stats"][stat]
-            if "requirement" in stat:
-                if statvalue < 0:
-                    statcolor = Constants.charmstatcolors["positiveCharm"]
-                else:
-                    statcolor = Constants.charmstatcolors["negativeCharm"]
-            elif ("cooldown" in stat) and ("reduction" not in stat):
-                if statvalue < 0:
-                    statcolor = Constants.charmstatcolors["positiveCharm"]
-                else:
-                    statcolor = Constants.charmstatcolors["negativeCharm"]
-            else:
-                if statvalue < 0:
-                    statcolor = Constants.charmstatcolors["negativeCharm"]
-                else:
-                    statcolor = Constants.charmstatcolors["positiveCharm"]
 
             tk.Label(charmframe, text=charmtohumanreadable(stat, statvalue),
-                     font=("Helvetica", int(50 / len(statlist[0]))), bg="black", fg=statcolor)\
-                .grid(row=count+5, column=index, padx=20, pady=2)
+                     font=("Helvetica", int(50 / len(statlist[0]))), bg="black", fg=returnstatcolor(stat, statvalue))\
+                .grid(row=count+2, column=0, padx=2, pady=2, sticky="W")
 
         charmrarityframe = tk.Frame(charmframe, bg="black")
-        charmrarityframe.grid(row=5+len(charm["stats"]), column=index)
+        charmrarityframe.grid(row=2+len(charm["stats"]), column=0, sticky="W")
         tk.Label(charmrarityframe, text="Ring", bg="black", fg=Constants.infotext).pack(side="left")
 
         if charm["tier"] == "Epic" or charm["tier"] == "Legendary":
@@ -77,4 +75,5 @@ def displaycharminfo(window, statlist):
             tk.Label(charmrarityframe, text=charm["tier"], bg="black",
                      fg=Constants.tiercolors[charm["tier"].lower()]).pack(side="left")
 
-        tk.Label(charmframe, text=location, bg="black", fg=charmnamecolor).grid(row=6+len(charm["stats"]), column=index)
+        tk.Label(charmframe, text=location, bg="black", fg=charmnamecolor).grid(row=3+len(charm["stats"]),
+                                                                                column=0, sticky="W")
