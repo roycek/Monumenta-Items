@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [pre-2.0.1] - 2022-11-28
+
+- Updated Architect's Ring compatibility for `geartilegenerator.py`
+
 ## [pre-2.0.0] - 2022-11-26
 
 Monumenta-Items pre-release 2 offers a whole new section to the user interface: Equipment!
