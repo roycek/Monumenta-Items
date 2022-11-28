@@ -108,6 +108,21 @@ def displaygearinfo(window, statlist):
         tk.Label(gearframe, text=gearpiece["type"] + ' - ' + gearpiece["base_item"], bg="black", fg=Constants.infotext)\
             .grid(row=1, column=0, sticky="W")
 
+        if gearpiece["region"] == "Ring":
+            masterworkframe = tk.Frame(gearframe, bg="black")
+            masterworkframe.grid(row=2, column=0, sticky="W")
+
+            maxstars = {"Rare": 3, "Epic": 6}[gearpiece["tier"]]
+            gearstars = gearpiece["masterwork"]
+
+            tk.Label(masterworkframe, text="Masterwork: ", bg="black", fg=Constants.infotext).pack(side="left")
+            for x in range(gearstars):
+                tk.Label(masterworkframe, text=u"\u2605", font=("Helvetica", 10), bg="black",
+                         fg=Constants.masterworkstar).pack(side="left")
+            for x in range(maxstars-gearstars):
+                tk.Label(masterworkframe, text=u"\u2606", font=("Helvetica", 10), bg="black", fg=Constants.infotext)\
+                    .pack(side="left")
+
         unsortedstats = {}
         for count, stat in enumerate(gearpiece["stats"]):
             formattedstat, stattype, statcolor = StatFormatter(stat, gearpiece["stats"][stat]).formatstat()
@@ -117,10 +132,10 @@ def displaygearinfo(window, statlist):
 
         for count, formattedstat in enumerate(formattedstats):
             tk.Label(gearframe, text=formattedstat, bg="black", fg=formattedstats[formattedstat])\
-                .grid(row=count+2, column=0, sticky="W")
+                .grid(row=count+3, column=0, sticky="W")
 
         gearrarityframe = tk.Frame(gearframe, bg="black")
-        gearrarityframe.grid(row=2+len(gearpiece["stats"]), column=0, sticky="W")
+        gearrarityframe.grid(row=3+len(gearpiece["stats"]), column=0, sticky="W")
         tk.Label(gearrarityframe, text=gearpiece["region"], bg="black", fg=Constants.infotext).pack(side="left")
 
         if gearpiece["tier"] == "Epic" or gearpiece["tier"] == "Legendary":
@@ -130,5 +145,5 @@ def displaygearinfo(window, statlist):
             tk.Label(gearrarityframe, text=gearpiece["tier"], bg="black",
                      fg=Constants.tiercolors[gearpiece["tier"].lower()]).pack(side="left")
 
-        tk.Label(gearframe, text=location, bg="black", fg=gearnamecolor).grid(row=3+len(gearpiece["stats"]),
+        tk.Label(gearframe, text=location, bg="black", fg=gearnamecolor).grid(row=4+len(gearpiece["stats"]),
                                                                               column=0, sticky="W")

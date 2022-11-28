@@ -18,7 +18,7 @@ class Constants:
               "Chains from Below the Waves",
               "Bark of the Gateway Tree",
               "Magistruct Breaker",
-              "Creation"]
+              "Veilripper-6"]
 
     locationcolors = {"Architect's Ring": "#FBF578",
                       "The Wolfswood": "#578C4E",
