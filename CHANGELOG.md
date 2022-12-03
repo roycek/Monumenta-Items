@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## [pre-3.0.0] - 2022-12-02
+
+Monumenta-Items pre-release 3 is a huge commit that offers a massive update to the entire user inferface - Gear Input!
+
+Featuring autocompleting drop down menus and ability to input 6 charms and 6 pieces of gear, this release is the biggest one yet.
+
+No more files need to be changed to input manual gear! Just run `main.py` in an IDE or from the commandline and enjoy inputting the gear your heart desires
+
+The GUI also has future compatibility for stat caluclation, but as of now no stat calculation has been implemented. Enjoy!
+
+### Major Changes
+
+- User input GUI class `GearInput` in `main.py` which handles all of the initial user gear and charm input
+
+### Changed Features
+
+- `charms` and `gear` lists removed from action in `constants.py`
+
+- a lot of refractoring and a lot of bugfixes, although there are a few GUI breaking bugs still in action
+
 ## [pre-2.0.1] - 2022-11-28
 
 - Updated Architect's Ring compatibility for `geartilegenerator.py`
